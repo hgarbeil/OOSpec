@@ -64,6 +64,8 @@ class OO(QtCore.QObject):
 		self.spec_data = numpy.zeros ((2048), dtype=numpy.float64)
 
 
+	def getMaxPeaks (self) :
+		self.maxval = numpy.max (self.spec_data)
 
 	 
 

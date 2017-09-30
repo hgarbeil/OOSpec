@@ -12,6 +12,8 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.startCollectButton.clicked.connect (self.getSpectra)
         self.ui.focusButton.clicked.connect(self.startFocus)
         self.ui.stopFocusButton.clicked.connect (self.stopFocus)
+        ###
+        self.ui.testdataButton.clicked.connect (self.testdata)
         self.myOO = OO ()
         self.myOO.newData.connect (self.plot_new_data)
         self.ui.plotWidget.mousePos.connect (self.mousePos)
@@ -38,6 +40,33 @@ class OOSpec(QtWidgets.QMainWindow) :
         print xdat
         str = "%7.1f"% xdat
         self.ui.vlineLE.setText(str)
+
+    def testdata (self) :
+
+        x = numpy.zeros(315, dtype=numpy.float32)
+        y = numpy.zeros(315, dtype=numpy.float32)
+        f = file("M:/data/HE_P1.OO_Spec", 'r')
+        f.readline()
+        count = 0
+        for line in f:
+            m = line.split()
+            x[count] = m[0]
+            y[count] = m[1]
+            count = count + 1
+            if count == 315:
+                break
+        f.close()
+        wave0 = x[0]
+        wave1 = x[count-1]
+        wavestep = (wave1 - wave0) / 2047.
+        newx = numpy.zeros(2048, dtype=numpy.float32)
+        newy = numpy.zeros(2048, dtype=numpy.float32)
+
+        for i in range (2048) :
+            newx[i]=wave0+i*wavestep
+        newy = numpy.interp (newx, x, y)
+        print newy.shape
+        self.ui.plotWidget.setMyData(newx, newy)
 
     def getSpectra (self) :
         print "HELLO"
