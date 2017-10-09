@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>924</width>
+    <width>948</width>
     <height>591</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>330</y>
+      <y>420</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -41,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>360</y>
+      <y>450</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -54,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>390</y>
+      <y>480</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -69,11 +69,11 @@
       <x>660</x>
       <y>20</y>
       <width>231</width>
-      <height>301</height>
+      <height>371</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="SpecTab">
      <attribute name="title">
@@ -252,6 +252,229 @@
      <attribute name="title">
       <string>Fit</string>
      </attribute>
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>6</y>
+        <width>191</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Rt. Peak</string>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>13</y>
+         <width>60</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Base :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Amplitude :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Peak X Loc :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Width :</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>13</y>
+         <width>73</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="base0LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="amp0LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="peak0LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="width0LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>138</y>
+        <width>191</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Lt. Peak</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>23</y>
+         <width>60</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Base :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Amplitude :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Peak X Loc :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Width :</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>23</y>
+         <width>73</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLineEdit" name="base1LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="amp1LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="peak1LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="width1LE">
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>300</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Refine Fit</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
@@ -355,7 +578,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>924</width>
+     <width>948</width>
      <height>21</height>
     </rect>
    </property>

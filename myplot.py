@@ -33,7 +33,7 @@ class MyPlot (pg.PlotWidget):
 
     def draggedLine (self) :
         self.maxLinePos = self.myLine.value()
-        print "Max line pos ", self.maxLinePos
+        #print "Max line pos ", self.maxLinePos
         self.linePos.emit (self.maxLinePos)
 
     def mouseMoved (self, evt) :
