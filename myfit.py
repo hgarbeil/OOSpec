@@ -31,6 +31,21 @@ class MyFit(QtCore.QObject) :
         
         self.x = xarr.copy()
         self.y = yarr.copy()
+        ysmooth = self.y.coppy()
+        npts = self.y.size()
+        winsize = 25
+        win2 = winsize / 2
+        for i in range (npts) :
+            ysmooth[i]=0
+            ss = i - win2
+            es = i + win2 + 1
+            if ss < 0 : ss = 0
+            if es > npts : es = npts 
+            n = es - ss
+            for j in range (ss,es) :
+                ysmooth[i] = ysmooth[i] + self.y[j]
+            ysmooth[i] = ysmooth[i] / n
+        
 
         print 'data has been copied'
 
