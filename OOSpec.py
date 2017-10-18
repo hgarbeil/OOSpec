@@ -2,7 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys
 from OO import *
 from myfit import *
-import numpy 
+import numpy
+from rubyfit import *
 
 
 
@@ -89,7 +90,10 @@ class OOSpec(QtWidgets.QMainWindow) :
 
         testx = x[140:200]
         testy = y[140:200]
-        self.myfit.set_x_y (self.newx, self.newy)
+        #self.myfit.set_x_y (self.newx, self.newy)
+        rf = RubyFit ()
+        rf.setXY (self.newx, self.newy)
+        rf.fitXY
 
 
 

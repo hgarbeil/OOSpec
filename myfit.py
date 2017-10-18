@@ -31,7 +31,7 @@ class MyFit(QtCore.QObject) :
         
         self.x = xarr.copy()
         self.y = yarr.copy()
-        ysmooth = self.y.coppy()
+        ysmooth = self.y.copy()
         npts = self.y.size()
         winsize = 25
         win2 = winsize / 2
