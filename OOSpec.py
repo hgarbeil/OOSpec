@@ -32,8 +32,9 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.myOO.setIntegrationTime (self.integTime, 1)
 
         self.outdata = np.zeros(2048, dtype=np.float64)
-        self.myfit = MyFit ()
-        self.myfit.refined_fit.connect (self.fit_done)
+        #self.myfit = MyFit ()
+        #self.myfit.refined_fit.connect (self.fit_done)
+        self.rfit = RubyFit ()
 
     def mousePos (self, xydat) :
         #print xydat.x()
@@ -101,7 +102,7 @@ class OOSpec(QtWidgets.QMainWindow) :
     def getSpectra (self) :
         self.myOO.getSpectrum (self.outdata)
         self.ui.plotWidget.setMyData(self.myOO.waves, self.outdata)
-        self.last_collect()
+        #self.last_collect()
 
     def startFocus (self) :
         self.myOO.startFocus (self.outdata)
@@ -117,7 +118,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         print float(val)
 
     def plot_new_data (self) :
-        print "Plot new data ...."
+        #print "Plot new data ...."
         self.ui.plotWidget.setMyData(self.myOO.waves, self.outdata)
         
         
@@ -126,12 +127,13 @@ class OOSpec(QtWidgets.QMainWindow) :
     def last_collect (self) :
         print "Acquisition complete"
         print "Loading test data"
+        self.rfit.setXY (self.myOO.waves, self.outdata)
+        return
 
 
-        self.testdata()
         str='%f'%self.myfit.params0[0]
         self.ui.base0LE.setText (str)
-        str='%f'%self.myfit.params0[1]
+
         self.ui.amp0LE.setText (str)
         str='%f'%self.myfit.params0[2]
         self.ui.peak0LE.setText (str)

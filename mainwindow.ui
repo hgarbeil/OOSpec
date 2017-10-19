@@ -277,13 +277,13 @@
       <property name="title">
        <string>Rt. Peak</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>11</x>
          <y>13</y>
          <width>171</width>
-         <height>71</height>
+         <height>76</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -353,13 +353,13 @@
       <property name="title">
        <string>Lt. Peak</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>11</x>
          <y>20</y>
          <width>171</width>
-         <height>61</height>
+         <height>76</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -442,13 +442,13 @@
       <property name="title">
        <string>Linear Base</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>12</x>
          <y>20</y>
          <width>171</width>
-         <height>41</height>
+         <height>51</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -460,7 +460,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="slopeLE">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -477,7 +477,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="intcptLE">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -593,7 +593,7 @@
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

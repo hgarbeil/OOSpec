@@ -10,29 +10,37 @@ class RubyFit () :
     NONHYDROSTATIC_SCALE = 2
 
     def __init__(self):
-        self.mydata = SpeFile ('Ruby.spe')
-        self.wave = self.mydata.x_calibration
-        self.ydata = self.mydata.img [18,:]
+        #self.mydata = SpeFile ('Ruby.spe')
+        #self.wave = self.mydata.x_calibration
+        #self.ydata = self.mydata.img [18,:]
         self.fitParams =[]
         self.sampleTemp = 298.
-        self._reference_position = 298.
+        self._reference_position = 694.
 
     def setXY (self, x, y) :
         self.wave = x.copy()
         self.ydata = y.copy()
-
-    def analyze (self) :
         x = self.wave
         y = self.ydata
         self.npts = y.size
         self.maxval = np.max(y)
         self.minval = np.min(y)
-        loc = np.argmax (y)
+        loc =np.argmax (y)
+        self.s np.argmax (y)
         self.sample_position = self.wave[loc]
+        self.amplitude1 = self.maxval - self.minval
+        self.amplitude2 = 0.6 * self.amplitude1
+        self.samp1 = self.sample_position
+        self.samp2 = self.samp1 - 1.5
+        self.sigma1 = 0.25
+        self.sigma2 = 0.25
+
+
 
     def fitXY (self) :
         self.analyze ()
-        amplitude = self.maxval - self.minval
+        self.amplitude1 = self.maxval - self.minval
+        self.amplitude2 = .6 * self.amplitude1
         peak1 = PseudoVoigtModel (prefix='p1_')
         peak2 = PseudoVoigtModel (prefix='p2_')
         basef = LinearModel ()
@@ -106,9 +114,9 @@ class RubyFit () :
         return P
 
 
-rf = RubyFit ()
-rf.fitXY ()
-plt.plot (rf.wave, rf.ydata)
-plt.plot (rf.wave, rf.modelFit)
-plt.show()
+#rf = RubyFit ()
+#rf.fitXY ()
+#plt.plot (rf.wave, rf.ydata)
+#plt.plot (rf.wave, rf.modelFit)
+#plt.show()
 
