@@ -79,7 +79,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         #    print i, self.newx[i], self.newy[i]
 
         #print newy.shape
-        self.ui.plotWidget.setMyData(self.newx, self.newy)
+
         #self.myOO.setData (newx, newy)
         #loc = self.myOO.getMaxPeaks ()
         #maxval = numpy.max(self.myOO.newy)
@@ -92,8 +92,9 @@ class OOSpec(QtWidgets.QMainWindow) :
         testy = y[140:200]
         #self.myfit.set_x_y (self.newx, self.newy)
         rf = RubyFit ()
-        rf.setXY (self.newx, self.newy)
-        rf.fitXY
+        self.ui.plotWidget.setMyData(rf.wave, rf.ydata)
+        #rf.setXY (self.newx, self.newy)
+        rf.fitXY ()
 
 
 
