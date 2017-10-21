@@ -14,6 +14,7 @@ class OO(QtCore.QObject):
     
     def __init__ (self) :
         QtCore.QObject.__init__(self)
+
         #self.sea = CDLL ('/usr/lib/libseabreeze.so')
         self.sea = CDLL ('C:\Program Files\Ocean Optics\SeaBreeze\Library\SeaBreeze.dll')
         self.sea.seabreeze_open_spectrometer.argtypes=[c_int, POINTER(c_int)]
@@ -31,7 +32,7 @@ class OO(QtCore.QObject):
         self.sea.seabreeze_get_min_integration_time_microsec.argtypes = [c_int, POINTER(c_int)]
         self.sea.seabreeze_get_min_integration_time_microsec.restype = c_long
 
-
+        return
 
         self.err = c_int(-1)
         self.specnum = c_int(0)
@@ -82,6 +83,7 @@ class OO(QtCore.QObject):
 
     # send integration time in msec
     def setIntegrationTime (self, time_msec, scans_to_avg) :
+        return
         micsec = c_ulong(time_msec * 1000)   
         self.sea.seabreeze_set_integration_time_microsec.argtypes = [c_int, POINTER(c_int), c_ulong]
         self.sea.seabreeze_set_integration_time_microsec (self.specnum, self.err, micsec)

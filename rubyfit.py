@@ -1,46 +1,57 @@
 from lmfit.models import LinearModel, PseudoVoigtModel
+from PyQt5 import QtCore, QtGui
 import numpy as np
 from SpeFile import *
 import matplotlib.pyplot as plt
 
 
-class RubyFit () :
+class RubyFit (QtCore.QObject) :
+    fitDone = QtCore.pyqtSignal()
     DEWAELE_SCALE = 0
     HYDROSTATIC_SCALE = 1
     NONHYDROSTATIC_SCALE = 2
 
     def __init__(self):
+        QtCore.QObject.__init__(self)
         #self.mydata = SpeFile ('Ruby.spe')
         #self.wave = self.mydata.x_calibration
         #self.ydata = self.mydata.img [18,:]
         self.fitParams =[]
         self.sampleTemp = 298.
         self._reference_position = 694.
+        self.samp1 = 694
+        self.samp2 = 692.5
+        self.sigma1 = 0.25
+        self.sigma2 = 0.25
+        self.oparams1 = np.zeros(4, dtype=np.float64)
+        self.oparams2 = np.zeros(4, dtype=np.float64)
+        self.oparams3 = np.zeros(2, dtype=np.float64)
 
     def setXY (self, x, y) :
         self.wave = x.copy()
         self.ydata = y.copy()
-        x = self.wave
-        y = self.ydata
+
         self.npts = y.size
         self.maxval = np.max(y)
         self.minval = np.min(y)
         loc =np.argmax (y)
-        self.s np.argmax (y)
         self.sample_position = self.wave[loc]
         self.amplitude1 = self.maxval - self.minval
         self.amplitude2 = 0.6 * self.amplitude1
         self.samp1 = self.sample_position
         self.samp2 = self.samp1 - 1.5
-        self.sigma1 = 0.25
-        self.sigma2 = 0.25
+        self.fraction1 = 0.8
+        self.fraction2 = 0.8
+
+
 
 
 
     def fitXY (self) :
-        self.analyze ()
-        self.amplitude1 = self.maxval - self.minval
-        self.amplitude2 = .6 * self.amplitude1
+        #self.analyze ()
+        #self.amplitude1 = self.maxval - self.minval
+        #self.amplitude2 = .6 * self.amplitude1
+
         peak1 = PseudoVoigtModel (prefix='p1_')
         peak2 = PseudoVoigtModel (prefix='p2_')
         basef = LinearModel ()
@@ -48,8 +59,8 @@ class RubyFit () :
         params = model.make_params(
             p1_center = self.sample_position,
             p2_center = self.sample_position - 1.5,
-            p1_amplitude = amplitude,
-            p2_amplitude = amplitude * 0.6,
+            p1_amplitude = self.amplitude1,
+            p2_amplitude = self.amplitude1 * 0.6,
             p1_sigma = 0.25,
             p2_sigma = 0.25,
             p1_fraction = 0.8,
@@ -61,6 +72,20 @@ class RubyFit () :
         self.modelFit = result.best_fit
         bfd = result.best_values
         self.fitParams = [bfd['p1_amplitude'], bfd['p1_center'], bfd['p1_sigma'], bfd['p1_fraction'],bfd['p2_amplitude'], bfd['p2_center'], bfd['p2_sigma'], bfd['p2_fraction'],bfd['slope'],bfd['intercept']]
+        self.oparams1[0] = bfd['p1_amplitude']
+        self.oparams1[1] = bfd['p1_center']
+        self.oparams1[2] = bfd['p1_sigma']
+        self.oparams1[3] = bfd['p1_fraction']
+        self.oparams2[0] = bfd['p2_amplitude']
+        self.oparams2[1] = bfd['p2_center']
+        self.oparams2[2] = bfd['p2_sigma']
+        self.oparams2[3] = bfd['p2_fraction']
+        self.oparams3[0]= bfd['slope']
+        self.oparams3[1]= bfd['intercept']
+
+        self.fitDone.emit ()
+
+
 
     def setTemperature (self, temp) :
         self.sampleTemp = temp

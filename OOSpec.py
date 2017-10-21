@@ -17,14 +17,19 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.stopFocusButton.clicked.connect (self.stopFocus)
         ###
         self.ui.testdataButton.clicked.connect (self.testdata)
+        self.ui.PVFitButton.clicked.connect (self.fit_data)
         self.myOO = OO ()
         self.myOO.newData.connect (self.plot_new_data)
         self.myOO.lastData.connect (self.last_collect)
         self.ui.plotWidget.mousePos.connect (self.mousePos)
         self.ui.plotWidget.linePos.connect(self.linePos)
-        self.ui.plotWidget.setXRange (self.myOO.waves[0], self.myOO.waves[2047])
-        self.ui.plotWidget.setMyData (self.myOO.waves, self.myOO.spec_data)
+        self.rfit = RubyFit()
+        self.rfit.fitDone.connect (self.fit_done)
+
+        #self.ui.plotWidget.setXRange (self.myOO.waves[0], self.myOO.waves[2047])
+        #self.ui.plotWidget.setMyData (self.myOO.waves, self.myOO.spec_data)
         self.ui.integTimeLE.editingFinished.connect (self.setIntegTime)
+        self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
 
         self.integTime = 100 ;
         str="%d"%self.integTime
@@ -34,7 +39,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.outdata = np.zeros(2048, dtype=np.float64)
         #self.myfit = MyFit ()
         #self.myfit.refined_fit.connect (self.fit_done)
-        self.rfit = RubyFit ()
+
 
     def mousePos (self, xydat) :
         #print xydat.x()
@@ -42,6 +47,17 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.xposLE.setText (str)
         str = "%7.1f"%xydat.y()
         self.ui.yposLE.setText (str)
+
+
+    def readSpectrum (self) :
+        myfile, _ = QtWidgets.QFileDialog.getOpenFileName (self, "Spectrum File",'',"Spec File (*.spe)")
+        print myfile
+        sp = SpeFile (myfile)
+        self.waves = sp.x_calibration [:]
+        self.outdata = sp.img[18,:]
+        self.ui.plotWidget.setMyData(self.waves, self.outdata)
+        self.last_collect()
+
 
     def linePos (self, xdat) :
         str = "%7.1f"% xdat
@@ -92,10 +108,14 @@ class OOSpec(QtWidgets.QMainWindow) :
         testx = x[140:200]
         testy = y[140:200]
         #self.myfit.set_x_y (self.newx, self.newy)
-        rf = RubyFit ()
-        self.ui.plotWidget.setMyData(rf.wave, rf.ydata)
-        #rf.setXY (self.newx, self.newy)
-        rf.fitXY ()
+
+        self.ui.plotWidget.setMyData(self.rf.wave, self.rf.ydata)
+        #rf.setXY (self.rf.wave, self.newy)
+
+    def fit_data (self) :
+        print "in here"
+        #self.rf.setXY (self.waves, self.outdata)
+        self.rfit.fitXY ()
 
 
 
@@ -120,6 +140,7 @@ class OOSpec(QtWidgets.QMainWindow) :
     def plot_new_data (self) :
         #print "Plot new data ...."
         self.ui.plotWidget.setMyData(self.myOO.waves, self.outdata)
+        self.waves = self.myOO.waves
         
         
         
@@ -127,38 +148,36 @@ class OOSpec(QtWidgets.QMainWindow) :
     def last_collect (self) :
         print "Acquisition complete"
         print "Loading test data"
-        self.rfit.setXY (self.myOO.waves, self.outdata)
-        return
 
-
-        str='%f'%self.myfit.params0[0]
-        self.ui.base0LE.setText (str)
-
+        self.rfit.setXY (self.waves, self.outdata)
+        str='%f'%self.rfit.amplitude1
         self.ui.amp0LE.setText (str)
-        str='%f'%self.myfit.params0[2]
-        self.ui.peak0LE.setText (str)
-        str='%f'%self.myfit.params0[3]
-        self.ui.width0LE.setText (str)
-        self.myfit.do_fit(1)
-        str='%f'%self.myfit.params1[0]
-        self.ui.base1LE.setText (str)
-        str='%f'%self.myfit.params1[1]
+        str = '%f' % self.rfit.amplitude2
         self.ui.amp1LE.setText (str)
-        str='%f'%self.myfit.params1[2]
-        self.ui.peak1LE.setText (str)
-        str='%f'%self.myfit.params1[3]
-        self.ui.width1LE.setText (str)
-        #self.myfit.do_fit(1)
+        str='%f'%self.rfit.samp1
+        self.ui.peak0LE.setText (str)
+        str='%f'%self.rfit.samp2
+        self.ui.peak1LE.setText(str)
+        str = '%f' % self.rfit.samp1
+        self.ui.width0LE.setText(str)
+        str = '%f' % self.rfit.samp2
+        self.ui.width1LE.setText(str)
+        str = '%f' % self.rfit.fraction1
+        self.ui.frac0LE.setText(str)
+        str = '%f' % self.rfit.fraction2
+        self.ui.frac1LE.setText(str)
+
         
     def fit_done (self) :
-        str='%f'%self.myfit.params0[0]
-        self.ui.base0LE.setText (str)
-        str='%f'%self.myfit.params0[1]
+        str='%f'%self.rfit.oparams1[0]
         self.ui.amp0LE.setText (str)
-        str='%f'%self.myfit.params0[2]
+        str='%f'%self.rfit.oparams1[1]
         self.ui.peak0LE.setText (str)
-        str='%f'%self.myfit.params0[3]
+        str='%f'%self.rfit.oparams1[2]
         self.ui.width0LE.setText (str)
+        str='%f'%self.rfit.oparams1[3]
+        self.ui.frac0LE.setText (str)
+        self.ui.plotWidget.over_plot (self.rfit.modelFit)
         
 
 

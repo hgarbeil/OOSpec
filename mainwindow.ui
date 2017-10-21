@@ -271,153 +271,259 @@
         <x>5</x>
         <y>10</y>
         <width>191</width>
-        <height>91</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="title">
        <string>Rt. Peak</string>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QLabel" name="label_6">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>13</y>
-         <width>171</width>
-         <height>76</height>
+         <x>12</x>
+         <y>14</y>
+         <width>54</width>
+         <height>16</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Amplitude :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="amp0LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Peak X Loc :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="peak0LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Width :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="width0LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="text">
+        <string>Amplitude :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>39</y>
+         <width>58</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Peak X Loc :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>64</y>
+         <width>35</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Width :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="amp0LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>14</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="peak0LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>39</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="width0LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>64</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>47</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Fraction :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="frac0LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>90</y>
+         <width>71</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>100</y>
+        <y>130</y>
         <width>191</width>
-        <height>91</height>
+        <height>121</height>
        </rect>
       </property>
       <property name="title">
        <string>Lt. Peak</string>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QLabel" name="label_12">
        <property name="geometry">
         <rect>
-         <x>11</x>
-         <y>20</y>
-         <width>171</width>
-         <height>76</height>
+         <x>12</x>
+         <y>65</y>
+         <width>35</width>
+         <height>16</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Amplitude :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="amp1LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Peak X Loc :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="peak1LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Width :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="width1LE">
-          <property name="maximumSize">
-           <size>
-            <width>71</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="text">
+        <string>Width :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>21</y>
+         <width>54</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Amplitude :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>43</y>
+         <width>58</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Peak X Loc :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="peak1LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>43</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="amp1LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>21</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="width1LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>65</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Fraction :</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="frac1LE">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>90</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>20</height>
+        </size>
+       </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="PVFitButton">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -434,7 +540,7 @@
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>200</y>
+        <y>250</y>
         <width>191</width>
         <height>71</height>
        </rect>
@@ -442,13 +548,13 @@
       <property name="title">
        <string>Linear Base</string>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
          <x>12</x>
          <y>20</y>
          <width>171</width>
-         <height>51</height>
+         <height>41</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
@@ -460,7 +566,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="slopeLE">
+         <widget class="QLineEdit" name="lineEdit">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -477,7 +583,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="intcptLE">
+         <widget class="QLineEdit" name="lineEdit_2">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -593,11 +699,23 @@
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad_Spectrum_File"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_Spectrum_File">
+   <property name="text">
+    <string>Load Spectrum File</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
