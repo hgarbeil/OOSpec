@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>420</y>
+      <y>460</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -41,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>450</y>
+      <y>490</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -54,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>480</y>
+      <y>520</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -73,7 +73,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="SpecTab">
      <attribute name="title">
@@ -259,6 +259,42 @@
       <property name="title">
        <string>Output File </string>
       </property>
+      <widget class="QPushButton" name="browseoutfileButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="outfileLE">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>191</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="save_specLE">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>50</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Save</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="FitTab">
@@ -526,7 +562,7 @@
      <widget class="QPushButton" name="PVFitButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>140</x>
         <y>330</y>
         <width>75</width>
         <height>23</height>
@@ -566,7 +602,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="slopeLE">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -583,7 +619,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="intcptLE">
           <property name="maximumSize">
            <size>
             <width>71</width>
@@ -594,6 +630,187 @@
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QLabel" name="statusLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>333</y>
+        <width>121</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Status : Guess</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Pressure</string>
+     </attribute>
+     <widget class="QComboBox" name="ruby_scaleCB">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>20</y>
+        <width>111</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Dewaele</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hydrostatic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Non-hydrostatic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ruby scale :</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="calc_pressureButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Calculate</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>201</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>Reference Position :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="refposLE">
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>694</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Reference Temp :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="reftempLE">
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>298</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Sample Position :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="sampposLE">
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>693.8</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>Sample Temp :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="samptempLE">
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>298.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>Pressure  (calculated) </string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="press_calcLE">
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -682,8 +899,8 @@
    <widget class="QPushButton" name="testdataButton">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>510</y>
+      <x>780</x>
+      <y>520</y>
       <width>101</width>
       <height>23</height>
      </rect>

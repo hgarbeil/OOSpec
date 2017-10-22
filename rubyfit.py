@@ -19,6 +19,7 @@ class RubyFit (QtCore.QObject) :
         self.fitParams =[]
         self.sampleTemp = 298.
         self._reference_position = 694.
+        self._reference_temperature = 298
         self.samp1 = 694
         self.samp2 = 692.5
         self.sigma1 = 0.25
@@ -26,6 +27,7 @@ class RubyFit (QtCore.QObject) :
         self.oparams1 = np.zeros(4, dtype=np.float64)
         self.oparams2 = np.zeros(4, dtype=np.float64)
         self.oparams3 = np.zeros(2, dtype=np.float64)
+        self.ruby_scale = 0
 
     def setXY (self, x, y) :
         self.wave = x.copy()
@@ -42,9 +44,6 @@ class RubyFit (QtCore.QObject) :
         self.samp2 = self.samp1 - 1.5
         self.fraction1 = 0.8
         self.fraction2 = 0.8
-
-
-
 
 
     def fitXY (self) :
@@ -67,6 +66,7 @@ class RubyFit (QtCore.QObject) :
             p2_fraction = 0.8,
             slope = 0,
             intercept = self.minval
+
         )
         result = model.fit (self.ydata, x=self.wave, **params)
         self.modelFit = result.best_fit
@@ -90,14 +90,21 @@ class RubyFit (QtCore.QObject) :
     def setTemperature (self, temp) :
         self.sampleTemp = temp
 
+    def set_press_params (self, ind, pparams) :
+        self.ruby_scale = ind
+        self.reference_position = pparams[0]
+        self.reference_temperature = pparams[1]
+        self.sample_position = pparams[2]
+        self.sample_temperature = pparams[3]
+
+
     def get_ruby_pressure(self):
-        line_pos = self.fitParams[0]
-        temperature = self.sampleTemp
-        self.reference_position = line_pos
+        line_pos = self.sample_position
+        temperature = self.sample_temperature
         k = 0.46299
         l = 0.0060823
         m = 0.0000010264
-        reftemp = self._reference_temperature
+        reftemp = self.reference_temperature
         if temperature is None:
             temp = reftemp
         else:
@@ -105,13 +112,13 @@ class RubyFit (QtCore.QObject) :
         lam0 = self.reference_position
         lam = line_pos
 
-        if self._ruby_scale == RubyFit.DEWAELE_SCALE:
+        if self.ruby_scale == RubyFit.DEWAELE_SCALE:
             B = 9.61
             A = 1920
-        elif self._ruby_scale == RubyFit.HYDROSTATIC_SCALE:
+        elif self.ruby_scale == RubyFit.HYDROSTATIC_SCALE:
             B = 7.665
             A = 1904
-        elif self._ruby_scale == RubyFit.NONHYDROSTATIC_SCALE:
+        elif self.ruby_scale == RubyFit.NONHYDROSTATIC_SCALE:
             B = 5
             A = 1904
 
@@ -139,9 +146,5 @@ class RubyFit (QtCore.QObject) :
         return P
 
 
-#rf = RubyFit ()
-#rf.fitXY ()
-#plt.plot (rf.wave, rf.ydata)
-#plt.plot (rf.wave, rf.modelFit)
-#plt.show()
+
 

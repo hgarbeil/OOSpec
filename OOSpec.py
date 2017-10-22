@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys
+from os.path import expanduser
 from OO import *
 from myfit import *
 import numpy
@@ -18,6 +19,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         ###
         self.ui.testdataButton.clicked.connect (self.testdata)
         self.ui.PVFitButton.clicked.connect (self.fit_data)
+        self.ui.calc_pressureButton.clicked.connect (self.fit_pressure)
         self.myOO = OO ()
         self.myOO.newData.connect (self.plot_new_data)
         self.myOO.lastData.connect (self.last_collect)
@@ -30,6 +32,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         #self.ui.plotWidget.setMyData (self.myOO.waves, self.myOO.spec_data)
         self.ui.integTimeLE.editingFinished.connect (self.setIntegTime)
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
+        self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
 
         self.integTime = 100 ;
         str="%d"%self.integTime
@@ -39,6 +42,10 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.outdata = np.zeros(2048, dtype=np.float64)
         #self.myfit = MyFit ()
         #self.myfit.refined_fit.connect (self.fit_done)
+        # get home directory and output spectrum file
+        home = expanduser ("~")
+        outfile = "%s/outspec.SPE"%home
+        self.ui.outfileLE.setText (outfile)
 
 
     def mousePos (self, xydat) :
@@ -57,6 +64,13 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.outdata = sp.img[18,:]
         self.ui.plotWidget.setMyData(self.waves, self.outdata)
         self.last_collect()
+
+
+    def get_output_file (self) :
+        outfile,_ = QtWidgets.QFileDialog.getSaveFileName (self, "Spectrum File",'',"Spec File (*.spe)")
+        self.outfileLE.setText (outfile)
+
+
 
 
     def linePos (self, xdat) :
@@ -117,7 +131,20 @@ class OOSpec(QtWidgets.QMainWindow) :
         #self.rf.setXY (self.waves, self.outdata)
         self.rfit.fitXY ()
 
+    def fit_pressure (self) :
+        #collect params for fitting
+        rsind = self.ui.ruby_scaleCB.currentIndex()
+        val0 = float(self.ui.refposLE.text())
 
+        str = self.ui.reftempLE.text()
+        val1 = float(self.ui.reftempLE.text())
+        val2 = float(self.ui.sampposLE.text())
+        val3 = float(self.ui.samptempLE.text())
+        pfitparams = np.asarray ([val0, val1, val2, val3], dtype=np.float32)
+        self.rfit.set_press_params (rsind, pfitparams)
+        mypressure = self.rfit.get_ruby_pressure()
+        str="%f"%mypressure
+        self.ui.press_calcLE.setText(str)
 
     def getSpectra (self) :
         self.myOO.getSpectrum (self.outdata)
@@ -167,16 +194,41 @@ class OOSpec(QtWidgets.QMainWindow) :
         str = '%f' % self.rfit.fraction2
         self.ui.frac1LE.setText(str)
 
+        # linear
+        str = '%f'%self.rfit.minval
+        self.ui.intcptLE.setText (str)
+        str ="0.0"
+        self.ui.slopeLE.setText (str)
+        self.ui.statusLabel.setText ("Status : Guess")
+
         
     def fit_done (self) :
         str='%f'%self.rfit.oparams1[0]
         self.ui.amp0LE.setText (str)
+
         str='%f'%self.rfit.oparams1[1]
         self.ui.peak0LE.setText (str)
+        self.ui.sampposLE.setText(str)
         str='%f'%self.rfit.oparams1[2]
         self.ui.width0LE.setText (str)
         str='%f'%self.rfit.oparams1[3]
         self.ui.frac0LE.setText (str)
+        str = '%f' % self.rfit.oparams2[0]
+        self.ui.amp1LE.setText(str)
+        str = '%f' % self.rfit.oparams2[1]
+        self.ui.peak1LE.setText(str)
+        str = '%f' % self.rfit.oparams2[2]
+        self.ui.width1LE.setText(str)
+        str = '%f' % self.rfit.oparams2[3]
+        self.ui.frac1LE.setText(str)
+        str = '%f' % self.rfit.oparams3[0]
+        self.ui.slopeLE.setText(str)
+        str = '%f' % self.rfit.oparams3[1]
+        self.ui.intcptLE.setText(str)
+        self.ui.statusLabel.setText("Status : Fitted")
+
+
+
         self.ui.plotWidget.over_plot (self.rfit.modelFit)
         
 

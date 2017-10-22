@@ -35,9 +35,12 @@ class MyPlot (pg.PlotWidget):
         maxv = x[len(x)-1]
         self.setXRange (minv, maxv)
         self.plot (x,y, pen=(0,3))
+        maxarg = np.argmax (y)
+        self.maxLinePos = x[maxarg]
 
         self.myLine = self.addLine (x=self.maxLinePos,movable=True)
         self.myLine.sigPositionChangeFinished.connect (self.draggedLine)
+        self.linePos.emit(self.maxLinePos)
 
     def over_plot (self, y) :
         self.setMyData (self.rx, self.ry)
