@@ -184,25 +184,25 @@ class OOSpec(QtWidgets.QMainWindow) :
         print "Loading test data"
 
         self.rfit.setXY (self.waves, self.outdata)
-        str='%f'%self.rfit.amplitude1
+        str='%8.2f'%self.rfit.amplitude1
         self.ui.amp0LE.setText (str)
-        str = '%f' % self.rfit.amplitude2
+        str = '%8.2f' % self.rfit.amplitude2
         self.ui.amp1LE.setText (str)
-        str='%f'%self.rfit.samp1
+        str='%8.3f'%self.rfit.samp1
         self.ui.peak0LE.setText (str)
-        str='%f'%self.rfit.samp2
+        str='%8.3f'%self.rfit.samp2
         self.ui.peak1LE.setText(str)
-        str = '%f' % self.rfit.samp1
+        str = '%5.3f' % self.rfit.samp1
         self.ui.width0LE.setText(str)
-        str = '%f' % self.rfit.samp2
+        str = '%5.3f' % self.rfit.samp2
         self.ui.width1LE.setText(str)
-        str = '%f' % self.rfit.fraction1
+        str = '%5.3f' % self.rfit.fraction1
         self.ui.frac0LE.setText(str)
-        str = '%f' % self.rfit.fraction2
+        str = '%5.3f' % self.rfit.fraction2
         self.ui.frac1LE.setText(str)
 
         # linear
-        str = '%f'%self.rfit.minval
+        str = '%8.3f'%self.rfit.minval
         self.ui.intcptLE.setText (str)
         str ="0.0"
         self.ui.slopeLE.setText (str)
@@ -210,27 +210,27 @@ class OOSpec(QtWidgets.QMainWindow) :
 
         
     def fit_done (self) :
-        str='%f'%self.rfit.oparams1[0]
+        str='%8.2f'%self.rfit.oparams1[0]
         self.ui.amp0LE.setText (str)
 
-        str='%f'%self.rfit.oparams1[1]
+        str='%8.3f'%self.rfit.oparams1[1]
         self.ui.peak0LE.setText (str)
         self.ui.sampposLE.setText(str)
-        str='%f'%self.rfit.oparams1[2]
+        str='%5.3f'%self.rfit.oparams1[2]
         self.ui.width0LE.setText (str)
-        str='%f'%self.rfit.oparams1[3]
+        str='%5.3f'%self.rfit.oparams1[3]
         self.ui.frac0LE.setText (str)
-        str = '%f' % self.rfit.oparams2[0]
+        str = '%8.2f' % self.rfit.oparams2[0]
         self.ui.amp1LE.setText(str)
-        str = '%f' % self.rfit.oparams2[1]
+        str = '%8.3f' % self.rfit.oparams2[1]
         self.ui.peak1LE.setText(str)
-        str = '%f' % self.rfit.oparams2[2]
+        str = '%5.3f' % self.rfit.oparams2[2]
         self.ui.width1LE.setText(str)
-        str = '%f' % self.rfit.oparams2[3]
+        str = '%5.3f' % self.rfit.oparams2[3]
         self.ui.frac1LE.setText(str)
-        str = '%f' % self.rfit.oparams3[0]
+        str = '%5.3f' % self.rfit.oparams3[0]
         self.ui.slopeLE.setText(str)
-        str = '%f' % self.rfit.oparams3[1]
+        str = '%8.2f' % self.rfit.oparams3[1]
         self.ui.intcptLE.setText(str)
         self.ui.statusLabel.setText("Status : Fitted")
 

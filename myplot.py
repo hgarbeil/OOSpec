@@ -40,6 +40,8 @@ class MyPlot (pg.PlotWidget):
         self.startX = 630
         self.startY = 750
 
+        self.first_data = True
+
 
         #self.vLine = pg.InfiniteLine (movable=True, angle=90)
         #self.vLine.setZValue(self.maxLinePos)
@@ -48,11 +50,16 @@ class MyPlot (pg.PlotWidget):
     def resetView (self) :
         self.setXRange (self.startX, self.startY)
 
+
     def setBox (self) :
         self.box_mode = 1
         self.myroi[0].setPos(0,0)
-        self.myroi[0].setSize (2,2)
+        self.myroi[0].setSize (20,20)
         self.addItem(self.myroi[0])
+
+    def setFirstData (self) :
+        self.first_data = True
+
 
     def setMyData (self, x,y) :
         self.clear()
@@ -60,8 +67,13 @@ class MyPlot (pg.PlotWidget):
         self.ry = y.copy ()
         minv = x[0]
         maxv = x[len(x)-1]
-        if (self.autoFlag) :
+
+        if (self.autoFlag or self.first_data ) :
+            maxy = np.max(y)
+            miny = np.min(y)
             self.setXRange (minv, maxv)
+            self.setYRange (miny, maxy*1.5)
+            self.first_data = False
 
         self.plot (x,y, pen=(0,3))
         maxarg = np.argmax (y)
