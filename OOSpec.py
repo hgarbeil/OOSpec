@@ -33,6 +33,8 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.integTimeLE.editingFinished.connect (self.setIntegTime)
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
+        self.ui.def_roi_button.clicked.connect (self.startRoi)
+        self.ui.reset_button.clicked.connect (self.resetView)
 
         self.integTime = 100 ;
         str="%d"%self.integTime
@@ -71,7 +73,8 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.outfileLE.setText (outfile)
 
 
-
+    def startRoi (self) :
+        self.ui.plotWidget.setBox()
 
     def linePos (self, xdat) :
         str = "%7.1f"% xdat
@@ -106,6 +109,7 @@ class OOSpec(QtWidgets.QMainWindow) :
             self.newx[i]=wave0+i*wavestep
         
         self.newy = numpy.interp (self.newx, x, y)
+
         #for i in range (2048) :
         #    print i, self.newx[i], self.newy[i]
 
@@ -168,6 +172,9 @@ class OOSpec(QtWidgets.QMainWindow) :
         #print "Plot new data ...."
         self.ui.plotWidget.setMyData(self.myOO.waves, self.outdata)
         self.waves = self.myOO.waves
+
+    def resetView (self) :
+        self.ui.plotWidget.resetView ()
         
         
         
