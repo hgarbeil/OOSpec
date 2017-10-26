@@ -32,7 +32,7 @@ class OO(QtCore.QObject):
         self.sea.seabreeze_get_min_integration_time_microsec.argtypes = [c_int, POINTER(c_int)]
         self.sea.seabreeze_get_min_integration_time_microsec.restype = c_long
 
-        return
+        #return
 
         self.err = c_int(-1)
         self.specnum = c_int(0)

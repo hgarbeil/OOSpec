@@ -18,6 +18,7 @@ class MyPlot (pg.PlotWidget):
         yy = np.random.normal(size=1000)
         self.plot(x, y, pen=(0,3), symbol='+')  ## setting pen=None disables line drawing
         self.plot (x, yy, pen=(1,3), symbol='+')
+        self.autoFlag = False
 
         #rois =[]
         #self.myroi = [(pg.RectROI([0,0],[1,1],pen=(0,9), movable=True, invertible=True, maxBounds=[0,0,1200,16000]))]
@@ -59,7 +60,9 @@ class MyPlot (pg.PlotWidget):
         self.ry = y.copy ()
         minv = x[0]
         maxv = x[len(x)-1]
-        self.setXRange (minv, maxv)
+        if (self.autoFlag) :
+            self.setXRange (minv, maxv)
+
         self.plot (x,y, pen=(0,3))
         maxarg = np.argmax (y)
         self.maxLinePos = x[maxarg]
