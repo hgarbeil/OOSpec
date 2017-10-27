@@ -19,7 +19,7 @@ class MyPlot (pg.PlotWidget):
         self.plot(x, y, pen=(0,3), symbol='+')  ## setting pen=None disables line drawing
         self.plot (x, yy, pen=(1,3), symbol='+')
         self.autoFlag = False
-
+        self.roi_disp = False
         #rois =[]
         #self.myroi = [(pg.RectROI([0,0],[1,1],pen=(0,9), movable=True, invertible=True, maxBounds=[0,0,1200,16000]))]
         self.myroi = [(pg.RectROI([0, 0], [20, 20], invertible=True, pen=(0, 9)))]
@@ -54,8 +54,9 @@ class MyPlot (pg.PlotWidget):
     def setBox (self) :
         self.box_mode = 1
         self.myroi[0].setPos(0,0)
-        self.myroi[0].setSize (20,20)
+        self.new_roi()
         self.addItem(self.myroi[0])
+        self.roi_disp=True
 
     def setFirstData (self) :
         self.first_data = True
@@ -63,6 +64,8 @@ class MyPlot (pg.PlotWidget):
 
     def setMyData (self, x,y) :
         self.clear()
+        if (self.roi_disp) :
+            self.addItem(self.myroi[0])
         self.rx = x.copy ()
         self.ry = y.copy ()
         minv = x[0]
@@ -88,6 +91,7 @@ class MyPlot (pg.PlotWidget):
         self.setMyData (self.rx, self.ry)
         self.plot (self.rx, y, pen=(1,3))
 
+
     def draggedLine (self) :
         self.maxLinePos = self.myLine.value()
         #print "Max line pos ", self.maxLinePos
@@ -97,7 +101,10 @@ class MyPlot (pg.PlotWidget):
         if (self.box_mode != 1) :
             return
         xy = self.plotItem.vb.mapSceneToView(evt._scenePos)
+        self.roi_disp = True
         self.myroi[0].setPos (xy)
+        self.new_roi()
+
         self.box_mode = 2
         print xy
 
@@ -117,23 +124,21 @@ class MyPlot (pg.PlotWidget):
 
 
         return
-        if self.box_mode > 0 :
-            if (self.box_mode >0) :
-                (x0,y0) = self.myroi[0].pos()
-                xx = xval - x0
-                yy = y0 - yval
-                print "%d %d "%(xx,yy)
-                self.myroi[0].setPos (x0,y0)
-                self.myroi[0].setSize (xx,yy)
+
 
 
     def roi_done (self, evt) :
         if (self.box_mode != 2) :
             return
+        self.box_mode = -1
+        self.roi_disp = False
         (x0, y0) = self.myroi[0].pos()
         (x1,y1) = self.myroi[0].size ()
         self.setXRange (x0, x1+x0)
-
+        self.myroi[0].setPos(0,0)
+        self.new_roi()
         self.removeItem (self.myroi[0])
 
-        self.box_mode = -1
+    def new_roi (self) :
+
+        self.myroi[0].setSize (5, 10)
