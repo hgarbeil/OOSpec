@@ -46,7 +46,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.integTime = 100 ;
         str="%d"%self.integTime
         self.ui.integTimeLE.setText (str)
-        self.myOO.setIntegrationTime (self.integTime, 1)
+        self.myOO.setIntegrationTime (self.integTime)
 
         self.outdata = np.zeros(2048, dtype=np.float64)
         #self.myfit = MyFit ()
@@ -177,7 +177,6 @@ class OOSpec(QtWidgets.QMainWindow) :
     def setTimeVal (self, val) :
         str = "%d" % val
         self.ui.integTimeLE.setText(str)
-        self.setTimeVal(val)
         self.myOO.setIntegrationTime(val)
         self.integTime = val
 
@@ -186,19 +185,19 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.setTimeVal (val)
 
     def mm_IntTime(self):
-        val = self.m_IntTime + 100
+        val = self.integTime + 100
         self.setTimeVal(val)
 
     def l_IntTime(self):
-        val = self.m_IntTime - 25
+        val = self.integTime - 25
         if val < 0 :
-        val = self.m_intTime / 2
+            val = self.integTime / 2
         self.setTimeVal(val)
 
-    def mm_IntTime(self):
-        val = self.m_IntTime - 100
+    def ll_IntTime(self):
+        val = self.integTime - 100
         if val < 0:
-            val = self.m_intTime / 4
+            val = self.integTime / 4
         self.setTimeVal(val)
 
 
