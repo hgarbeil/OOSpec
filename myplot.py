@@ -37,9 +37,11 @@ class MyPlot (pg.PlotWidget):
 
 
         self.maxLinePos = 700
-        self.startX = 630
-        self.startY = 750
+        self.startX = 670
+        self.endX = 750
 
+        # first data if the flag to see if the spectrum has been displayed before or not,
+        # if not use the data's x range to set the plot x axis
         self.first_data = True
 
 
@@ -48,7 +50,7 @@ class MyPlot (pg.PlotWidget):
         #self.addItem(self.vLine, ignoreBounds=True)
 
     def resetView (self) :
-        self.setXRange (self.startX, self.startY)
+        self.setXRange (self.startX, self.endX)
 
 
     def setBox (self) :
@@ -76,6 +78,9 @@ class MyPlot (pg.PlotWidget):
             miny = np.min(y)
             self.setXRange (minv, maxv)
             self.setYRange (miny, maxy*1.5)
+            if self.first_data :
+                self.startX = minv
+                self.endX = maxv
             self.first_data = False
 
         self.plot (x,y, pen=(0,3))

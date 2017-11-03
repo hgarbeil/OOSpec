@@ -30,7 +30,11 @@ class OOSpec(QtWidgets.QMainWindow) :
 
         #self.ui.plotWidget.setXRange (self.myOO.waves[0], self.myOO.waves[2047])
         #self.ui.plotWidget.setMyData (self.myOO.waves, self.myOO.spec_data)
+
+        #Integration time
         self.ui.integTimeLE.editingFinished.connect (self.setIntegTime)
+        #self.ui.lessLessITButton.clicked.connect (self.ll_IntTime)
+ cd        #self.ui.lessITButton.clicked.connect(self.l_IntTime)
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
         self.ui.def_roi_button.clicked.connect (self.startRoi)
@@ -167,6 +171,9 @@ class OOSpec(QtWidgets.QMainWindow) :
         val = int(val)
         self.myOO.setIntegrationTime (val,1)
         print float(val)
+
+    def l_IntTime (self) :
+        val = self.m
 
     def plot_new_data (self) :
         #print "Plot new data ...."

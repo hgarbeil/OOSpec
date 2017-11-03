@@ -63,6 +63,8 @@ class OO(QtCore.QObject):
         minint = self.sea.seabreeze_get_min_integration_time_microsec (self.specnum, byref(self.err))
         print minint
         self.mininttime = long(minint) / 1000
+        self.int_time = 100
+        self.setIntegrationTime (self.int_time, 1)
 
         self.spec_data = numpy.zeros ((2048), dtype=numpy.float64)
         self.maxloc = 0
@@ -83,7 +85,7 @@ class OO(QtCore.QObject):
 
     # send integration time in msec
     def setIntegrationTime (self, time_msec, scans_to_avg) :
-        return
+        self.int_time = time_msec
         micsec = c_ulong(time_msec * 1000)   
         self.sea.seabreeze_set_integration_time_microsec.argtypes = [c_int, POINTER(c_int), c_ulong]
         self.sea.seabreeze_set_integration_time_microsec (self.specnum, self.err, micsec)
