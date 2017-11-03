@@ -68,6 +68,7 @@ class OO(QtCore.QObject):
 
         self.spec_data = numpy.zeros ((2048), dtype=numpy.float64)
         self.maxloc = 0
+        self.scans_avg = 1
 
 
     def getMaxPeaks (self) :
@@ -81,19 +82,17 @@ class OO(QtCore.QObject):
         self.waves = x.copy()
         self.spec_data = y.copy()
 
-     
-
     # send integration time in msec
-    def setIntegrationTime (self, time_msec, scans_to_avg) :
+    def setIntegrationTime(self, time_msec):
         self.int_time = time_msec
-        micsec = c_ulong(time_msec * 1000)   
+        micsec = c_ulong(time_msec * 1000)
         self.sea.seabreeze_set_integration_time_microsec.argtypes = [c_int, POINTER(c_int), c_ulong]
-        self.sea.seabreeze_set_integration_time_microsec (self.specnum, self.err, micsec)
+        self.sea.seabreeze_set_integration_time_microsec(self.specnum, self.err, micsec)
         self.scans_avg = scans_to_avg
 
-        #print "Int time set result is %s at %d" % ( self.sea.seabreeze_get_error_string(self.err),
-        #    time_msec)
-        print "Scans to avg is : %d" % self.scans_avg
+            # print "Int time set result is %s at %d" % ( self.sea.seabreeze_get_error_string(self.err),
+            #    time_msec)
+            #print "Scans to avg is : %d" % self.scans_avg
 
 
     # note that outarray is a double * numpy array

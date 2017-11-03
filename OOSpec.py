@@ -33,8 +33,11 @@ class OOSpec(QtWidgets.QMainWindow) :
 
         #Integration time
         self.ui.integTimeLE.editingFinished.connect (self.setIntegTime)
-        #self.ui.lessLessITButton.clicked.connect (self.ll_IntTime)
- cd        #self.ui.lessITButton.clicked.connect(self.l_IntTime)
+        self.ui.lessLessITButton.clicked.connect (self.ll_IntTime)
+        self.ui.lessITButton.clicked.connect(self.l_IntTime)
+        self.ui.moreMoreITButton.clicked.connect(self.mm_IntTime)
+        self.ui.moreITButton.clicked.connect(self.m_IntTime)
+
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
         self.ui.def_roi_button.clicked.connect (self.startRoi)
@@ -166,14 +169,38 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.myOO.stopFocus ()
 
     def setIntegTime (self) :
-        print "in here"
         val=self.ui.integTimeLE.text()
         val = int(val)
-        self.myOO.setIntegrationTime (val,1)
-        print float(val)
+        self.integTime = val
+        self.myOO.setIntegrationTime (val)
 
-    def l_IntTime (self) :
-        val = self.m
+    def setTimeVal (self, val) :
+        str = "%d" % val
+        self.ui.integTimeLE.setText(str)
+        self.setTimeVal(val)
+        self.myOO.setIntegrationTime(val)
+        self.integTime = val
+
+    def m_IntTime (self) :
+        val = self.integTime + 25
+        self.setTimeVal (val)
+
+    def mm_IntTime(self):
+        val = self.m_IntTime + 100
+        self.setTimeVal(val)
+
+    def l_IntTime(self):
+        val = self.m_IntTime - 25
+        if val < 0 :
+        val = self.m_intTime / 2
+        self.setTimeVal(val)
+
+    def mm_IntTime(self):
+        val = self.m_IntTime - 100
+        if val < 0:
+            val = self.m_intTime / 4
+        self.setTimeVal(val)
+
 
     def plot_new_data (self) :
         #print "Plot new data ...."
