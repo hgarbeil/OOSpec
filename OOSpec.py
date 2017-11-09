@@ -215,7 +215,7 @@ class OOSpec(QtWidgets.QMainWindow) :
     def last_collect (self) :
         print "Acquisition complete"
         print "Loading test data"
-
+        self.waves = self.myOO.waves
         self.rfit.setXY (self.waves, self.outdata)
         str='%8.2f'%self.rfit.amplitude1
         self.ui.amp0LE.setText (str)

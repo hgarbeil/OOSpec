@@ -107,6 +107,7 @@ class OO(QtCore.QObject):
         #for i in range(self.scans_avg) :
         #    self.sea.seabreeze_get_formatted_spectrum (self.specnum, self.err, temparr, 2048)
         #    outarray += temparr * (1./self.scans_avg)
+        self.lastData.emit()
         
 
     def startFocus (self,outdata) :
