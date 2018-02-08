@@ -39,6 +39,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.moreITButton.clicked.connect(self.m_IntTime)
 
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
+        self.ui.save_specButton.clicked.connect (self.saveSpectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
         self.ui.def_roi_button.clicked.connect (self.startRoi)
         self.ui.reset_button.clicked.connect (self.resetView)
@@ -213,8 +214,8 @@ class OOSpec(QtWidgets.QMainWindow) :
         
     # start the setup for fitting   
     def last_collect (self) :
-        print "Acquisition complete"
-        print "Loading test data"
+        #print "Acquisition complete"
+        #print "Loading test data"
         self.waves = self.myOO.waves
         self.rfit.setXY (self.waves, self.outdata)
         str='%8.2f'%self.rfit.amplitude1
@@ -270,8 +271,26 @@ class OOSpec(QtWidgets.QMainWindow) :
 
 
         self.ui.plotWidget.over_plot (self.rfit.modelFit)
-        
 
+    # output spectrum to file
+    # get filename from as
+    # two column ascii file
+    # col1 : wavelength in nm
+    # col2 : intensity DN
+    def saveSpectrum (self):
+        #need to get output name from text field
+        numbins = numpy.size(self.myOO.waves)
+        ofilename = self.ui.outfileLE.text()
+        ofile = open (ofilename, 'w')
+        print 'writing to file %s'%ofilename
+        str='Wavelen\tDN\n'
+        ofile.write (str)
+        for i in range (numbins) :
+            w = self.myOO.waves[i]
+            v = self.outdata[i]
+            str='%f\t%f\n'%(w,v)
+            ofile.write(str)
+        ofile.close()
 
 
 if __name__=='__main__':

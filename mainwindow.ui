@@ -40,7 +40,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="SpecTab">
      <attribute name="title">
@@ -249,7 +249,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="save_specLE">
+      <widget class="QPushButton" name="save_specButton">
        <property name="geometry">
         <rect>
          <x>120</x>
@@ -280,7 +280,7 @@
       <property name="title">
        <string>Rt. Peak</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -373,7 +373,7 @@
       <property name="title">
        <string>Lt. Peak</string>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -836,7 +836,7 @@
      <string>Testdata</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -876,7 +876,7 @@
      <x>0</x>
      <y>0</y>
      <width>1120</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
