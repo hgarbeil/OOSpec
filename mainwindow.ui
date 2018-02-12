@@ -218,7 +218,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>240</y>
+        <y>290</y>
         <width>211</width>
         <height>91</height>
        </rect>
@@ -252,7 +252,7 @@
       <widget class="QPushButton" name="save_specButton">
        <property name="geometry">
         <rect>
-         <x>120</x>
+         <x>130</x>
          <y>50</y>
          <width>75</width>
          <height>23</height>
