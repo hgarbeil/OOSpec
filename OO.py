@@ -1,17 +1,23 @@
 from ctypes import *
 import numpy
-import pyqtgraph as pg
 from numpy.ctypeslib import ndpointer
 from threading import Thread
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QMessageBox
 import time
 
-#class OO(object) :
+"""
+The OO oceanoptics class is essentially a python wrapper of a minimal set of seabreeze API library functions.
+This class utilizes the ctypes model to address the seabreeze dll calls.
+Note that this class relies on the SeaBreeze.dll (or for linux the libseabreeze.so).
+"""
 class OO(QtCore.QObject):
 
+    # signals to notify the OOSpec main class that new data has been obtained.
     newData = QtCore.pyqtSignal ()
     lastData = QtCore.pyqtSignal ()
-    
+
+    """OO class initialization. """
     def __init__ (self) :
         QtCore.QObject.__init__(self)
 
@@ -37,7 +43,7 @@ class OO(QtCore.QObject):
         self.err = c_int(-1)
         self.specnum = c_int(0)
         self.spectyp = c_char_p
-        self.modelname = c_char_p("HELLLO THERE HOW ARE YOU")
+        self.modelname = c_char_p("UNKNOWN")
         self.nchars = c_int(80)
 
         self.flag=c_int(0)
@@ -51,8 +57,16 @@ class OO(QtCore.QObject):
 
         print "getting spec type"
         self.nchars = self.sea.seabreeze_get_model(self.specnum, byref(self.err), self.modelname,self.nchars)
-
         print self.modelname
+        if self.modelname.value == 'NONE' :
+            print "no spectrometer found! "
+            msgbox = QMessageBox ()
+            msgbox.setWindowTitle("OOSpec: No spectrometer")
+            msgbox.setText ("No spectrometer found...\nExiting")
+            msgbox.exec_()
+            exit(-1)
+
+
         #print "spec type is %s : %s" % (self.modelname, self.sea.seabreeze_get_error_string(self.err))
 
         print "getting spec waves"

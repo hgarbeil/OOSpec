@@ -885,12 +885,24 @@
     </property>
     <addaction name="actionLoad_Spectrum_File"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_OOSpec"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad_Spectrum_File">
    <property name="text">
     <string>Load Spectrum File</string>
+   </property>
+  </action>
+  <action name="actionAbout_OOSpec">
+   <property name="text">
+    <string>About OOSpec</string>
    </property>
   </action>
  </widget>

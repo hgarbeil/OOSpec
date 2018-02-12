@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5.QtWidgets import QMessageBox
 import sys
 from os.path import expanduser
 from OO import *
@@ -20,10 +21,11 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.testdataButton.clicked.connect (self.testdata)
         self.ui.PVFitButton.clicked.connect (self.fit_data)
         self.ui.calc_pressureButton.clicked.connect (self.fit_pressure)
-        self.myOO = OO ()
+        # OceanOptics class calls ocean optics seabreeze library calls.
+        self.myOO = OO()
         self.myOO.newData.connect (self.plot_new_data)
         self.myOO.lastData.connect (self.last_collect)
-        self.ui.plotWidget.mousePos.connect (self.mousePos)
+        self.ui.plotWidget.mousePos.connect (self.mouse_pos)
         self.ui.plotWidget.linePos.connect(self.linePos)
         self.rfit = RubyFit()
         self.rfit.fitDone.connect (self.fit_done)
@@ -38,8 +40,9 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.moreMoreITButton.clicked.connect(self.mm_IntTime)
         self.ui.moreITButton.clicked.connect(self.m_IntTime)
 
-        self.ui.actionLoad_Spectrum_File.triggered.connect (self.readSpectrum)
-        self.ui.save_specButton.clicked.connect (self.saveSpectrum)
+        self.ui.actionLoad_Spectrum_File.triggered.connect (self.read_spectrum)
+        self.ui.actionAbout_OOSpec.triggered.connect (self.about_program)
+        self.ui.save_specButton.clicked.connect (self.save_spectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
         self.ui.def_roi_button.clicked.connect (self.startRoi)
         self.ui.reset_button.clicked.connect (self.resetView)
@@ -54,11 +57,11 @@ class OOSpec(QtWidgets.QMainWindow) :
         #self.myfit.refined_fit.connect (self.fit_done)
         # get home directory and output spectrum file
         home = expanduser ("~")
-        outfile = "%s/outspec.SPE"%home
+        outfile = "%s\outspec.SPE"%home
         self.ui.outfileLE.setText (outfile)
 
 
-    def mousePos (self, xydat) :
+    def mouse_pos (self, xydat) :
         #print xydat.x()
         str="%7.1f"%xydat.x()
         self.ui.xposLE.setText (str)
@@ -66,7 +69,10 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.yposLE.setText (str)
 
 
-    def readSpectrum (self) :
+    def read_spectrum (self) :
+        """ Method to read an .spe file.
+        The filename is queried for and received by QFileDialog.
+        The file reading is accomplished by SpeFile class """
         myfile, _ = QtWidgets.QFileDialog.getOpenFileName (self, "Spectrum File",'',"Spec File (*.spe)")
         print myfile
         sp = SpeFile (myfile)
@@ -77,7 +83,7 @@ class OOSpec(QtWidgets.QMainWindow) :
 
 
     def get_output_file (self) :
-        outfile,_ = QtWidgets.QFileDialog.getSaveFileName (self, "Spectrum File",'',"Spec File (*.spe)")
+        outfile,_ = QtWidgets.QFileDialog.getSaveFileName (self, "ASCII Spec File",'',"Text file (*.txt)")
         self.outfileLE.setText (outfile)
 
 
@@ -118,17 +124,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         
         self.newy = numpy.interp (self.newx, x, y)
 
-        #for i in range (2048) :
-        #    print i, self.newx[i], self.newy[i]
 
-        #print newy.shape
-
-        #self.myOO.setData (newx, newy)
-        #loc = self.myOO.getMaxPeaks ()
-        #maxval = numpy.max(self.myOO.newy)
-        #minval = numpy.min(self)
-        #print loc
-        #mystr = "max loc is %d"%loc
 
 
         testx = x[140:200]
@@ -214,16 +210,18 @@ class OOSpec(QtWidgets.QMainWindow) :
         
     # start the setup for fitting   
     def last_collect (self) :
+        """The method called after the spectrum has been displayed in preparation for fitting.
+        Text fields for the fit tab filled in based on spectrum estimation and peak search results."""
         #print "Acquisition complete"
         #print "Loading test data"
         self.waves = self.myOO.waves
         self.rfit.setXY (self.waves, self.outdata)
         str='%8.2f'%self.rfit.amplitude1
-        self.ui.amp0LE.setText (str)
+        self.ui.amp0LE.setText(str)
         str = '%8.2f' % self.rfit.amplitude2
-        self.ui.amp1LE.setText (str)
+        self.ui.amp1LE.setText(str)
         str='%8.3f'%self.rfit.samp1
-        self.ui.peak0LE.setText (str)
+        self.ui.peak0LE.setText(str)
         str='%8.3f'%self.rfit.samp2
         self.ui.peak1LE.setText(str)
         str = '%5.3f' % self.rfit.samp1
@@ -244,6 +242,9 @@ class OOSpec(QtWidgets.QMainWindow) :
 
         
     def fit_done (self) :
+        """ This method is called by the rubyfit class.
+        This will display the fitted spectrum over the original raw data.
+        """
         str='%8.2f'%self.rfit.oparams1[0]
         self.ui.amp0LE.setText (str)
 
@@ -277,7 +278,12 @@ class OOSpec(QtWidgets.QMainWindow) :
     # two column ascii file
     # col1 : wavelength in nm
     # col2 : intensity DN
-    def saveSpectrum (self):
+
+    def save_spectrum (self):
+        """ This method is called by ui.save_specButton
+        the function gets filename from the ui.outfileLE line edit
+        the output ascii file is two columns, col1: wavelength in nm and col2 : DN
+        """
         #need to get output name from text field
         numbins = numpy.size(self.myOO.waves)
         ofilename = self.ui.outfileLE.text()
@@ -293,7 +299,17 @@ class OOSpec(QtWidgets.QMainWindow) :
         ofile.close()
 
 
+    def about_program (self) :
+        print "OOSpec V1.0"
+        msg = QMessageBox()
+        msg.setWindowTitle ("OOSpec : V1.0")
+        msg.setText ("HIGP/SOEST/UHM 2018")
+        msg.exec_()
+
 if __name__=='__main__':
+    """ global main function which instantiates the QApp class
+    and the OOSpec class
+    """
     app = QtWidgets.QApplication(sys.argv)
     oo = OOSpec ()
     oo.show()
