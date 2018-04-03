@@ -286,7 +286,7 @@
          <x>10</x>
          <y>24</y>
          <width>221</width>
-         <height>101</height>
+         <height>103</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -876,7 +876,7 @@
      <x>0</x>
      <y>0</y>
      <width>1120</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -884,6 +884,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_Spectrum_File"/>
+    <addaction name="actionLoad_AscSpectrum_File"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -897,12 +898,17 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad_Spectrum_File">
    <property name="text">
-    <string>Load Spectrum File</string>
+    <string>Load Spectrum File (.SPE)</string>
    </property>
   </action>
   <action name="actionAbout_OOSpec">
    <property name="text">
     <string>About OOSpec</string>
+   </property>
+  </action>
+  <action name="actionLoad_AscSpectrum_File">
+   <property name="text">
+    <string>Load Spectrum File (.txt)</string>
    </property>
   </action>
  </widget>

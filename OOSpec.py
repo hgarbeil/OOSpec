@@ -41,6 +41,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         self.ui.moreITButton.clicked.connect(self.m_IntTime)
 
         self.ui.actionLoad_Spectrum_File.triggered.connect (self.read_spectrum)
+        self.ui.actionLoad_AscSpectrum_File.triggered.connect(self.read_ascii_spectrum)
         self.ui.actionAbout_OOSpec.triggered.connect (self.about_program)
         self.ui.save_specButton.clicked.connect (self.save_spectrum)
         self.ui.browseoutfileButton.clicked.connect (self.get_output_file)
@@ -57,7 +58,7 @@ class OOSpec(QtWidgets.QMainWindow) :
         #self.myfit.refined_fit.connect (self.fit_done)
         # get home directory and output spectrum file
         home = expanduser ("~")
-        outfile = "%s\outspec.SPE"%home
+        outfile = "%s\outspec.txt"%home
         self.ui.outfileLE.setText (outfile)
 
 
@@ -73,11 +74,32 @@ class OOSpec(QtWidgets.QMainWindow) :
         """ Method to read an .spe file.
         The filename is queried for and received by QFileDialog.
         The file reading is accomplished by SpeFile class """
-        myfile, _ = QtWidgets.QFileDialog.getOpenFileName (self, "Spectrum File",'',"Spec File (*.spe)")
+        myfile, _ = QtWidgets.QFileDialog.getOpenFileName (self, "Spectrum File",'',"SPE File (*.SPE)")
         print myfile
         sp = SpeFile (myfile)
         self.waves = sp.x_calibration [:]
         self.outdata = sp.img[18,:]
+        self.ui.plotWidget.setMyData(self.waves, self.outdata)
+        self.last_collect()
+
+    def read_ascii_spectrum (self) :
+        """ Method to read an .txt file.
+        The filename is queried for and received by QFileDialog.
+        The file reading is accomplished by SpeFile class """
+        myfile, _ = QtWidgets.QFileDialog.getOpenFileName (self, "Spec Text File",'',"Text File (*.txt)")
+        print myfile
+        count = 0
+        wvs =[]
+        vals=[]
+        for line in myfile :
+            line = line.strip()
+            strs = line.split()
+            w = float (strs[0])
+            v = float (strs[1])
+            wvs.append (w)
+            vals.append(v)
+        self.waves = np.asarray(wvs, dtype=np.float32)
+        self.vals = np.asarray(vals, dtype=np.float32)
         self.ui.plotWidget.setMyData(self.waves, self.outdata)
         self.last_collect()
 
@@ -297,6 +319,7 @@ class OOSpec(QtWidgets.QMainWindow) :
             str='%f\t%f\n'%(w,v)
             ofile.write(str)
         ofile.close()
+
 
 
     def about_program (self) :
